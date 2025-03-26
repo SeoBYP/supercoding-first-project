@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:mysql://localhost:3306/supercoding_first_project?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: Vudrbs90wja@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#datasource:
+#  username: ${DATABASE_USERNAME}
+#  password: ${DATABASE_PASSWORD}
+#  driver-class-name: com.mysql.cj.jdbc.Driver
+#  url: jdbc:mysql://localhost:3306/chapter_96?useUnicode=true&characterEncoding=UTF-8
+#
+#datasource2:
+#  username: ${DATABASE_USERNAME}
+#  password: ${DATABASE_PASSWORD}
+#  url:
+#  driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#jwt:
+#  secret-key-source: ${JWT_SECRET_KEY}

@@ -1,0 +1,17 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/supercoding_first_project?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: Vudrbs90wja@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8080
+logging:
+  config: classpath:logback-spring-local.xml
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
