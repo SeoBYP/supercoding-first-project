@@ -1,4 +1,4 @@
-package www.supercoding.com.repository.comment;
+package www.supercoding.com.repository.post;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,21 +9,22 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
+@AllArgsConstructor
 @Entity
-@Table(name = "comments")
-public class Comment {
+@Table(name = "posts")
+@Builder
+public class PostEntity {
     @Id
-    @Column(name = "commentId")
+    @Column(name = "postId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long commentId;
+    private long postId;
+
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "content")
     private String content;
-
-    @Column(name = "postId")
-    private long postId;
 
     @Column(name = "userId")
     private long userId;
@@ -31,15 +32,18 @@ public class Comment {
     @Column(name = "created_at")
     private LocalDateTime created_at;
 
+    @Column(name = "updated_at")
+    private LocalDateTime updated_at;
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Comment comment = (Comment) o;
-        return commentId == comment.commentId;
+        PostEntity postEntity = (PostEntity) o;
+        return postId == postEntity.postId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(commentId);
+        return Objects.hashCode(postId);
     }
 }

@@ -12,7 +12,8 @@ import java.util.Objects;
 @ToString
 @Entity
 @Table(name = "likes")
-public class Like {
+@Builder
+public class LikeEntity {
     @Id
     @Column(name = "likeId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,7 @@ public class Like {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Like like = (Like) o;
+        LikeEntity like = (LikeEntity) o;
         return likeId == like.likeId;
     }
 

@@ -13,7 +13,8 @@ import java.util.Objects;
 @Entity // 이 클래스는 JPA 엔티티이며 DB 테이블과 매핑됨
 @AllArgsConstructor // 모든 필드를 매개변수로 받는 생성자 자동 생성
 @Table(name = "users") // 이 엔티티는 'users' 테이블과 매핑됨
-public class User {
+@Builder
+public class UserEntity {
     @Id @Column(name = "userId") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
@@ -29,7 +30,7 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        UserEntity user = (UserEntity) o;
         return userId == user.userId;
     }
 

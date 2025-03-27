@@ -1,6 +1,10 @@
 package www.supercoding.com.web.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.catalina.connector.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import www.supercoding.com.service.UserService;
 import www.supercoding.com.web.dto.Sign.*;
 
 import java.util.ArrayList;
@@ -8,34 +12,26 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@RequiredArgsConstructor
 public class UserController {
-
-    List<User> users = new ArrayList<User>();;
+    private final UserService userService;
 
     @PostMapping("/signup")
-    public SignUpResponse signup(@RequestBody SignUpRequest req)
+    public ResponseEntity<String> signup(@RequestBody SignUpRequestDto requestDto)
     {
-        int id = users.size() + 1;
-        User newUser = new User(id,req.getEmail(),req.getPassword());
-        users.add(newUser);
-        // TODO : 유저 패스워드 검증 및 DB 검증
-        System.out.println("새로운 유저가 생겼습니다. : " + users.size());
-        return new SignUpResponse(newUser.getEmail(), newUser.getPassword());
+        userService.signUp(requestDto);
+        return ResponseEntity.ok("회원가입 성공");
     }
 
     @GetMapping("/singin")
-    public SigninResponse singin(@RequestBody SigninRequest req)
+    public ResponseEntity<SigninResponseDto> singin(@RequestBody SigninRequestDto requestDto)
     {
-        User findedUser = users.stream()
-                .filter(user -> user.getEmail().equals(req.getEmail()))
-                .filter(user-> user.getPassword().equals(req.getPassword()))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("아이디 혹은 비밀번호가 일치하지 않습니다."));
-        return new SigninResponse("해당 유저를 찾았습니다. email : ");
+        return ResponseEntity.ok(userService.signIn(requestDto));
     }
 
-    @GetMapping("/signout")
-    public SignoutResponse signout(){
-        return new SignoutResponse("로그아웃 했습니다.");
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout() {
+        // 클라이언트 측에서 토큰 삭제 (서버에 저장된 세션이 없기 때문에 실제 로직은 필요 없음)
+        return ResponseEntity.ok("로그아웃 완료");
     }
 }
